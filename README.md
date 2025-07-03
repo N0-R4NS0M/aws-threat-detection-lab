@@ -49,15 +49,16 @@ Showcase practical cloud security engineering skills for identifying, monitoring
 
 aws-threat-detection-lab/
 ├── terraform/
-│   ├── main.tf              # VPC, EC2, IAM, GuardDuty, Config, Security Hub
-│   ├── variables.tf         # Input variables
-│   ├── outputs.tf           # Outputs (e.g., public IP)
+│   ├── main.tf
+│   ├── lambda.tf          
+│   ├── variables.tf
+│   ├── outputs.tf
 ├── lambda/
-│   └── isolate\_instance.py  # Python script for auto-remediation
-├── attack\_simulation/
-│   └── nmap\_scan.md         # Example threat simulation steps
+│   └── isolate_instance.py
+├── attack_simulation/
+│   └── nmap_scan.md
 ├── diagrams/
-│   └── architecture.png     # Lab network diagram
+│   └── architecture.png
 ├── README.md
 └── .gitignore
 
