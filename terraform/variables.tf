@@ -3,10 +3,10 @@ variable "aws_region" {
 }
 
 variable "ec2_ami" {
-  description = "Amazon Linux 2 AMI"
-  default     = "ami-08bfb3ff75119bd97"  # Amazon Linux 2 AMI for us-west-2
+  default = "ami-0c02fb55956c7d316"
 }
 
 variable "ssh_key_name" {
-  description = "Name of your existing EC2 key pair"
+  description = "Your EC2 key pair name"
+  default     = "my-keypair"
 }
