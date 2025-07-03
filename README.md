@@ -1,66 +1,63 @@
-# AWS Cloud Threat Detection & Response Lab
+# 🛡️ AWS Cloud Threat Detection & Response Lab
 
-This project demonstrates threat detection and automated response capabilities in AWS using services like **GuardDuty**, **Security Hub**, **AWS Config**, **CloudTrail**, and **Lambda**. It is built entirely using **Terraform** and is designed to simulate real-world security incidents, detect them, and respond automatically.
+This lab simulates real-world cloud security incidents and demonstrates automated threat detection and response using AWS-native services. Infrastructure is provisioned with Terraform and integrates GuardDuty, AWS Config, Security Hub, CloudTrail, and Lambda.
 
-## 🛡️ Goal
-
-Showcase practical cloud security engineering skills for identifying, monitoring, and remediating cloud threats using AWS native tools and Infrastructure as Code (IaC).
+> ⚙️ Designed as a portfolio project to showcase hands-on cloud security and DevSecOps engineering skills.
 
 ---
 
-## 🔧 Tools & Services Used
+## 🚀 Key Features
 
-- **AWS Services**: EC2, VPC, GuardDuty, Security Hub, CloudTrail, Config, IAM, Lambda, S3
-- **Terraform**: Infrastructure provisioning
-- **Python (Boto3)**: Used in Lambda functions for automated response
-- **MITRE ATT&CK**: Threat simulation alignment (optional)
-- **CloudWatch**: Event rules to trigger remediation actions
-
----
-
-## 🧰 Features
-
-### ✅ Infrastructure as Code (Terraform)
-- Creates an isolated VPC with public subnet and EC2 instance ("threat target")
-- Enables CloudTrail, GuardDuty, and Security Hub
-- Attaches IAM roles with least-privilege access for services
-
-### 🔎 Threat Simulation
-- Simulate suspicious activity such as:
-  - **Port scanning**
-  - **Brute-force login attempts**
-  - **Unencrypted or public S3 buckets**
-
-### ⚠️ Detection
-- AWS **GuardDuty** detects the threat and generates a finding
-- **Security Hub** aggregates findings across services
-- **AWS Config** flags non-compliant resource configurations
-
-### 🚨 Automated Response
-- **Lambda** triggered by GuardDuty/CloudWatch event
-- Lambda isolates compromised EC2 (e.g., removes public access, adds "quarantine" tag)
-- Optional: SNS notification for alerts
+- **Infrastructure as Code (IaC)** using Terraform
+- **AWS GuardDuty** detects port scans and other suspicious behavior
+- **AWS Lambda** automatically isolates compromised EC2 instances
+- **AWS Config** enforces compliance with encryption and network hardening rules
+- **Security Hub** aggregates and visualizes findings
+- **MITRE ATT&CK-aligned threat simulation**
 
 ---
 
-## 📁 Project Structure
+## 🧰 Tech Stack
+
+| Tool            | Purpose                         |
+|-----------------|----------------------------------|
+| Terraform       | Infrastructure provisioning      |
+| AWS EC2         | Target + attacker VMs            |
+| AWS GuardDuty   | Threat detection                 |
+| AWS Lambda      | Automated incident response      |
+| AWS Config      | Compliance monitoring            |
+| AWS Security Hub| Aggregation + visualization      |
+| Python (Boto3)  | Lambda scripting                 |
+| EventBridge     | Event-driven automation          |
+
+---
+
+## 🗺️ Architecture
+
+![Architecture Diagram](diagrams/architecture.png)
+
+> *This diagram shows the flow from threat detection → Lambda response → EC2 isolation.*
+
+---
+
+## 🧱 Project Structure
 
 ```
 
 aws-threat-detection-lab/
-├── terraform/
-│   ├── main.tf            # VPC, EC2, GuardDuty
-│   ├── lambda.tf          # Lambda function, IAM role, EventBridge
-│   ├── config.tf          # AWS Config rules and recorder
-│   ├── securityhub.tf     # Security Hub integration
-│   ├── variables.tf       # Region, key pair, AMI
-│   ├── outputs.tf         # Public IP, instance ID
+├── terraform/                # IaC files for full lab
+│   ├── main.tf
+│   ├── lambda.tf
+│   ├── config.tf
+│   ├── securityhub.tf
+│   ├── variables.tf
+│   ├── outputs.tf
 ├── lambda/
-│   └── isolate_instance.py  # Python script for automated remediation
+│   └── isolate_instance.py   # Python auto-remediation logic
 ├── attack_simulation/
-│   └── nmap_scan.md         # Steps to simulate port scan attack
+│   └── nmap_scan.md          # Simulate port scan
 ├── diagrams/
-│   └── architecture.png     # Architecture diagram 
+│   └── architecture.png      # Optional visual
 ├── README.md
 └── .gitignore
 
@@ -68,61 +65,57 @@ aws-threat-detection-lab/
 
 ---
 
-## 🚀 Getting Started
+## 🧪 Lab Walkthrough
 
-### Prerequisites
+### 1. Deploy the Lab
 
-- [Terraform](https://www.terraform.io/downloads)
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) configured with access
-- A valid EC2 key pair in your AWS account
+Ensure your AWS CLI is configured and a key pair is set.
 
-### Deployment
+```bash
+git clone https://github.com/N0-R4NS0M/aws-threat-detection-lab.git
+cd aws-threat-detection-lab/terraform
+terraform init && terraform apply
+````
 
-1. Clone the repo:
-    ```bash
-   git clone https://github.com/N0-R4NS0M/aws-threat-detection-lab.git
-   cd aws-threat-detection-lab/terraform
-    ````
+### 2. Simulate a Threat
 
-2. Update `variables.tf` with your AWS region and SSH key name
+Follow `attack_simulation/nmap_scan.md` to run a port scan from another EC2 instance.
 
-3. Deploy:
+### 3. Automatic Remediation
 
-   ```bash
-   terraform init
-   terraform apply
-   ```
+When GuardDuty detects the attack:
 
-4. SSH into the EC2 instance and simulate a threat (e.g., using `nmap` or a basic port scan)
+* The Lambda function is triggered via EventBridge
+* The suspicious EC2 is tagged and isolated (ingress rules removed)
 
 ---
 
-## 📷 Screenshots (add these later)
+## 📸 Screenshots
 
-* GuardDuty findings
-* Security Hub compliance summary
-* Auto-tagged and quarantined EC2
-* Architecture diagram
-
----
-
-## 🧠 Learning Outcomes
-
-* Automated threat detection in AWS environments
-* Use of GuardDuty, Config, and Security Hub in a practical workflow
-* Writing event-driven Lambda responders in Python
-* Infrastructure as Code (Terraform) in a security-first architecture
-* Compliance monitoring (e.g., unencrypted S3 or wide-open security groups)
+* ✅ GuardDuty Finding
+* ✅ Lambda execution logs
+* ✅ Quarantined EC2 tags
+* ✅ Security Hub summary
 
 ---
 
-## 📌 Author
+## 🎯 Skills Demonstrated
+
+* Cloud Security Engineering (GuardDuty, Config, IAM, Security Hub)
+* DevSecOps Automation with Terraform + Lambda
+* Incident Response (detection → action flow)
+* AWS Governance & Compliance (CIS, NIST)
+* Real-world threat simulation with MITRE ATT\&CK mapping
+
+---
+
+## 👋 Author
 
 **Aaron Diaz**
-[LinkedIn](https://linkedin.com/in/aaron918)
+🔗 [LinkedIn](https://linkedin.com/in/aaron918)
 
 ---
 
 ## 📝 License
 
-This project is for educational and portfolio use. No warranties, use at your own risk.
+This lab is for educational and portfolio use only. Use responsibly.
