@@ -49,16 +49,18 @@ Showcase practical cloud security engineering skills for identifying, monitoring
 
 aws-threat-detection-lab/
 ├── terraform/
-│   ├── main.tf
-│   ├── lambda.tf          
-│   ├── variables.tf
-│   ├── outputs.tf
+│   ├── main.tf            # VPC, EC2, GuardDuty
+│   ├── lambda.tf          # Lambda function, IAM role, EventBridge
+│   ├── config.tf          # AWS Config rules and recorder
+│   ├── securityhub.tf     # Security Hub integration
+│   ├── variables.tf       # Region, key pair, AMI
+│   ├── outputs.tf         # Public IP, instance ID
 ├── lambda/
-│   └── isolate_instance.py
+│   └── isolate_instance.py  # Python script for automated remediation
 ├── attack_simulation/
-│   └── nmap_scan.md
+│   └── nmap_scan.md         # Steps to simulate port scan attack
 ├── diagrams/
-│   └── architecture.png
+│   └── architecture.png     # Architecture diagram 
 ├── README.md
 └── .gitignore
 
