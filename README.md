@@ -45,19 +45,20 @@ This lab simulates real-world cloud security incidents and demonstrates automate
 ```
 
 aws-threat-detection-lab/
-├── terraform/                # IaC files for full lab
-│   ├── main.tf
-│   ├── lambda.tf
-│   ├── config.tf
-│   ├── securityhub.tf
-│   ├── variables.tf
-│   ├── outputs.tf
+├── terraform/            # IaC files for full lab
+│ ├── main.tf
+│ ├── lambda.tf
+│ ├── config.tf
+│ ├── securityhub.tf
+│ ├── variables.tf
+│ ├── outputs.tf
 ├── lambda/
-│   └── isolate_instance.py   # Python auto-remediation logic
+│ └── isolate_instance.py # Python auto-remediation logic
 ├── attack_simulation/
-│   └── nmap_scan.md          # Simulate port scan
+│ └── nmap_scan.md        # Simulate port scan
 ├── diagrams/
-│   └── architecture.png      # Optional visual
+│ └── architecture.png    # Optional visual
+├── teardown.sh           # Script to destroy all resources
 ├── README.md
 └── .gitignore
 
@@ -67,34 +68,53 @@ aws-threat-detection-lab/
 
 ## 🧪 Lab Walkthrough
 
-### 1. Deploy the Lab
+### 1. Clone and Deploy the Lab
 
-Ensure your AWS CLI is configured and a key pair is set.
 ```bash
-# 1. Clone the repo
 git clone https://github.com/N0-R4NS0M/aws-threat-detection-lab.git
 cd aws-threat-detection-lab/terraform
 
-# 2. Review or update variables.tf
-# Make sure your AWS region and EC2 key pair are set correctly
+# (Optional) Update variables.tf with your AWS region and EC2 key pair
 
-# 3. Initialize Terraform
 terraform init
-
-# 4. Apply the infrastructure (will prompt for approval)
 terraform apply
 ```
 
+Terraform will provision:
+
+* A VPC, EC2 instance, and basic networking
+* GuardDuty, AWS Config, and Security Hub
+* A Lambda function that auto-remediates threats
+
+---
+
 ### 2. Simulate a Threat
 
-Follow `attack_simulation/nmap_scan.md` to run a port scan from another EC2 instance.
+Follow the instructions in `attack_simulation/nmap_scan.md` to simulate a port scan attack from another EC2 instance.
 
-### 3. Automatic Remediation
+---
 
-When GuardDuty detects the attack:
+### 3. Observe the Response
 
-* The Lambda function is triggered via EventBridge
-* The suspicious EC2 is tagged and isolated (ingress rules removed)
+* GuardDuty will generate a finding
+* EventBridge triggers the Lambda function
+* The Lambda:
+
+  * Tags the suspicious EC2 as `Quarantine`
+  * Removes its ingress rules to isolate it
+
+---
+
+### 4. Teardown the Lab
+
+To safely destroy all AWS resources and avoid charges:
+
+```bash
+cd aws-threat-detection-lab
+./teardown.sh
+```
+
+> 💡 If the script isn’t executable, run `chmod +x teardown.sh` first.
 
 ---
 
