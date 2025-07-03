@@ -81,11 +81,17 @@ resource "aws_iam_role_policy_attachment" "config_policy" {
 
 resource "aws_config_config_rule" "unencrypted_s3" {
   name = "s3-bucket-server-side-encryption-enabled"
+
   source {
     owner             = "AWS"
     source_identifier = "S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED"
   }
+
   scope {
     compliance_resource_types = ["AWS::S3::Bucket"]
   }
+
+  depends_on = [
+    aws_config_configuration_recorder_status.main
+  ]
 }
