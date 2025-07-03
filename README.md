@@ -72,7 +72,7 @@ aws-threat-detection-lab/
 Ensure your AWS CLI is configured and a key pair is set.
 ```bash
 # 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/aws-threat-detection-lab.git
+git clone https://github.com/N0-R4NS0M/aws-threat-detection-lab.git
 cd aws-threat-detection-lab/terraform
 
 # 2. Review or update variables.tf
