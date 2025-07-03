@@ -70,12 +70,20 @@ aws-threat-detection-lab/
 ### 1. Deploy the Lab
 
 Ensure your AWS CLI is configured and a key pair is set.
-
 ```bash
-git clone https://github.com/N0-R4NS0M/aws-threat-detection-lab.git
+# 1. Clone the repo
+git clone https://github.com/YOUR_USERNAME/aws-threat-detection-lab.git
 cd aws-threat-detection-lab/terraform
-terraform init && terraform apply
-````
+
+# 2. Review or update variables.tf
+# Make sure your AWS region and EC2 key pair are set correctly
+
+# 3. Initialize Terraform
+terraform init
+
+# 4. Apply the infrastructure (will prompt for approval)
+terraform apply
+```
 
 ### 2. Simulate a Threat
 
