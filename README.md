@@ -77,7 +77,7 @@ aws-threat-detection-lab/
 ### 1. Clone and Deploy the Lab
 
 ```bash
-git clone https://github.com/N0-R4NS0M/aws-threat-detection-lab.git
+git clone https://github.com/securityAD/aws-threat-detection-lab.git
 cd aws-threat-detection-lab/terraform
 
 # (Optional) Update variables.tf with your AWS region and EC2 key pair
