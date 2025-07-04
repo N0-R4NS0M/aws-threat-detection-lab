@@ -45,7 +45,7 @@ This lab simulates real-world cloud security incidents and demonstrates automate
 ```
 
 aws-threat-detection-lab/
-├── terraform/            # IaC files for full lab
+├── terraform/ # Infrastructure as Code (VPC, EC2, GuardDuty, Lambda, Config)
 │ ├── main.tf
 │ ├── lambda.tf
 │ ├── config.tf
@@ -53,12 +53,18 @@ aws-threat-detection-lab/
 │ ├── variables.tf
 │ ├── outputs.tf
 ├── lambda/
-│ └── isolate_instance.py # Python auto-remediation logic
+│ └── isolate_instance.py # Python function for automated remediation
 ├── attack_simulation/
-│ └── nmap_scan.md        # Simulate port scan
+│ └── nmap_scan.md # Guide to simulate port scan attack
+├── screenshots/ # Captured GuardDuty, Lambda, Config, and Security Hub visuals
+│ ├── guardduty_finding.png
+│ ├── lambda_logs.png
+│ ├── ec2_quarantine.png
+│ ├── security_hub_summary.png
+│ └── aws_config_encryption_rule.png
 ├── diagrams/
-│ └── architecture.png    # Optional visual
-├── teardown.sh           # Script to destroy all resources
+│ └── architecture.png # Optional visual of detection/response architecture
+├── teardown.sh # Script to destroy all resources
 ├── README.md
 └── .gitignore
 
@@ -120,10 +126,33 @@ cd aws-threat-detection-lab
 
 ## 📸 Screenshots
 
-* ✅ GuardDuty Finding
-* ✅ Lambda execution logs
-* ✅ Quarantined EC2 tags
-* ✅ Security Hub summary
+### 🔍 GuardDuty Finding – Port Scan Detection
+GuardDuty identifies reconnaissance activity (`Recon:EC2/Portscan`) triggered by an Nmap scan.
+![GuardDuty Port Scan](screenshots/guardduty_finding.png)
+
+---
+
+### 🚨 Lambda Auto-Remediation – CloudWatch Logs
+Lambda function is triggered automatically and removes ingress rules from the compromised EC2 instance.
+![Lambda Logs](screenshots/lambda_logs.png)
+
+---
+
+### 🔒 Quarantined EC2 Instance – Tag & Isolation
+EC2 instance is tagged with `Quarantine=True` and its security group ingress rules are revoked.
+![EC2 Quarantine](screenshots/ec2_quarantine.png)
+
+---
+
+### 🧩 Security Hub – CIS AWS Foundations Benchmark
+Security Hub shows enabled CIS benchmark and findings summary, validating compliance monitoring.
+![Security Hub Compliance](screenshots/security_hub_summary.png)
+
+---
+
+### ✅ AWS Config – S3 Bucket Encryption Rule
+Config rule `s3-bucket-server-side-encryption-enabled` detects unencrypted S3 buckets in real-time.
+![AWS Config Rule](screenshots/aws_config_encryption_rule.png)
 
 ---
 
