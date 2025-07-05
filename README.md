@@ -63,7 +63,7 @@ aws-threat-detection-lab/
 │ ├── security_hub_summary.png
 │ └── aws_config_encryption_rule.png
 ├── diagrams/
-│ └── architecture.png # Optional visual of detection/response architecture
+│ └── architecture.png # Visual of detection/response architecture
 ├── teardown.sh # Script to destroy all resources
 ├── README.md
 └── .gitignore
